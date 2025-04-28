@@ -38,13 +38,17 @@ function drawOverlayGraphics() {
   overlayGraphics.background(0); // 設定背景為黑色
   overlayGraphics.noStroke();
 
-  // 每隔 20 單位繪製圓形
+  // 每隔 20 單位繪製方框與圓形
   for (let y = 0; y < overlayGraphics.height; y += 20) {
     for (let x = 0; x < overlayGraphics.width; x += 20) {
       // 從 capture 中取得對應位置的顏色
       let col = capture.get(x, y);
-      overlayGraphics.fill(col); // 設定圓形顏色
-      overlayGraphics.ellipse(x + 10, y + 10, 15, 15); // 繪製圓形，置於單位中心
+      let g = green(col); // 取得 G 值
+      overlayGraphics.fill(0, g, 100); // 設定方框顏色 (R=0, G=保留, B=100)
+      overlayGraphics.rect(x + 1, y + 1, 18, 18); // 繪製方框，稍微縮小以避免重疊
+
+      overlayGraphics.fill(0); // 設定圓形顏色為黑色
+      overlayGraphics.ellipse(x + 10, y + 10, 5, 5); // 繪製圓形，置於方框中心
     }
   }
 }
